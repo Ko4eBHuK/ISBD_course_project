@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %} Robofight service {% endblock %}
+
+{% block content %} 
+
+	<div class="navbar">
+    <a href="{% url 'robot_reg:index' %}">Главная</a>
+    <a href="{% url 'robot_reg:tournament_create' %}">Обслуживание боёв</a>
+    <a href="{% url 'robot_reg:select_robots_to_show' %}">Обслуживание шоу</a>
+    <a class="active">Обслуживание лабиринтов</a>
+  </div>
+  <div class="under_navbar">
+    <a>Главная</a>
+    <a>Регистрация робота</a>
+    <a>Обслуживание боёв</a>
+    <a>Обслуживание шоу</a>
+    <a>Обслуживание лабиринтов</a>
+  </div>
+  <div class="container">
+    <div class="content_item">
+      <form action="{% url 'robot_reg:index' %}" method="POST">
+        {% csrf_token %}
+        <br>
+        {% if ready_robots %}
+          <table>
+            <caption>Результаты забега</caption>
+            <thead>
+              <tr>
+                <td>Робот</td>
+                <td>Результат</td>
+              </tr>
+            </thead>
+            {% for robot in ready_robots %}
+            <tr>
+              <td>{{robot}}</td>
+              <td><input name="{{robot.id}}" placeholder="hh:mm:ss.3ms" maxlength="12"></td>
+            </tr>
+            {% endfor %}
+          </table>
+        {% endif %}
+        <br>
+        <input type="hidden" name="tournament_id" value="{{tournament.id}}">
+        <input type="hidden" name="referer" value="race_service">
+        <input type="submit" value="Save race results">
+      </form>
+      <br>
+    </div>
+  </div>
+
+{% endblock %}

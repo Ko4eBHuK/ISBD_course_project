@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %} Robofight service {% endblock %}
+
+{% block content %} 
+
+	<div class="navbar">
+    <a href="{% url 'robot_reg:index' %}">Главная</a>
+    <a class="active">Обслуживание боёв</a>
+    <a href="{% url 'robot_reg:select_robots_to_show' %}">Обслуживание шоу</a>
+    <a href="{% url 'robot_reg:race_tournament_create' %}">Обслуживание лабиринтов</a>
+  </div>
+  <div class="under_navbar">
+    <a>Главная</a>
+    <a>Регистрация робота</a>
+    <a>Обслуживание боёв</a>
+    <a>Обслуживание шоу</a>
+    <a>Обслуживание лабиринтов</a>
+  </div>
+  <div class="container">
+    <div class="content_item">
+       <p>Создание турнира</p>
+       <form action="{% url 'robot_reg:registration_of_robots' %}" method="POST">
+        {% csrf_token %}
+        <div>
+          {{tournament_create_form.as_p}}
+        </div>
+        <input type="submit" value="create tournament">
+       </form>
+    </div>
+  </div>
+
+{% endblock %}

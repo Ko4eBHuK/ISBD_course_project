@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %} Robofight service {% endblock %}
+
+{% block content %} 
+
+	<div class="navbar">
+    <a class="active">Главная</a>
+    <a href="{% url 'robot_reg:tournament_create' %}">Обслуживание боёв</a>
+    <a href="{% url 'robot_reg:select_robots_to_show' %}">Обслуживание шоу</a>
+    <a href="{% url 'robot_reg:race_tournament_create' %}">Обслуживание лабиринтов</a>
+  </div>
+  <div class="under_navbar">
+    <a>Главная</a>
+    <a>Регистрация робота</a>
+    <a>Обслуживание боёв</a>
+    <a>Обслуживание шоу</a>
+    <a>Обслуживание лабиринтов</a>
+  </div>
+  
+  <div class="container">
+    <div class="content_item">
+      <br>
+      {% if robots_rating_list %}
+        <table>
+          <caption>Рейтинговая таблица</caption>
+          <thead>
+            <tr>
+              <td>Робот</td>
+              <td>Количество участий</td>
+              <td>Общее количество очков</td>
+              <td>Средний балл</td>
+              <td>Дата изменения</td>
+            </tr>
+          </thead>
+        {% for a in robots_rating_list %}
+          <tr>
+            <td>{{a.robot}}</td>
+            <td>{{a.participate_count}}</td>
+            <td>{{a.scores}}</td>
+            <td>{{a.average_score}}</td>
+            <td>{{a.last_modification_date}}</td>
+          </tr>
+        {% endfor %}
+
+        </table>
+      {% else %}
+        В базе нет рейтинга роботов
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock %}

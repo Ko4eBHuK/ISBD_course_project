@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}{{robot.robot_name}}{% endblock %}
+
+{% block content %} 
+	
+<h2>{{robot.robot_name}}</h2>
+
+<p>ИД команды: {{robot.team_id}}</p>
+<p>Класс: {{robot.class_field}}</p>
+<em>Дата первого участия: {{robot.first_participation_date}}</em>
+<p></p>
+<em>Дата последнего участия: {{robot.last_participation_date}}</em>
+<p>Состояние: {{robot.condition}}</p>
+
+{% endblock %}

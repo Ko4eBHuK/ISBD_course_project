@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %} Robofight service {% endblock %}
+
+{% block content %} 
+
+	<div class="navbar">
+    <a href="{% url 'robot_reg:index' %}">Главная</a>
+    <a class="active">Обслуживание боёв</a>
+    <a href="{% url 'robot_reg:select_robots_to_show' %}">Обслуживание шоу</a>
+    <a href="{% url 'robot_reg:race_tournament_create' %}">Обслуживание лабиринтов</a>
+  </div>
+  <div class="under_navbar">
+    <a>Главная</a>
+    <a>Регистрация робота</a>
+    <a>Обслуживание боёв</a>
+    <a>Обслуживание шоу</a>
+    <a>Обслуживание лабиринтов</a>
+  </div>
+  <div class="container">
+    <div class="content_item">
+       <p>Регистрация роботов на турнир "{{tournament.title}}"</p>
+       <p>{{tournament.tournament_time}}</p>
+       <p>{{tournament.show}}</p>
+
+       <form action="{% url 'robot_reg:fights_results' %}" method="POST">
+        {% csrf_token %}
+        <table>
+          <caption>Малые боевые роботы</caption>
+          <thead>
+            <tr>
+              <td>Робот</td>
+              <td>Готовность</td>
+            </tr>
+          </thead>
+          {%for robot in small_robots_list %}
+          <tr>
+            <td>{{robot.title}}</td>
+            <td><input type="checkbox" name="{{robot.id}}" value="{{robot.condition}}"></td>
+          </tr>
+          {% endfor %}
+        </table>
+        <br>
+
+        <table>
+          <caption>Средние боевые роботы</caption>
+          <thead>
+            <tr>
+              <td>Робот</td>
+              <td>Готовность</td>
+            </tr>
+          </thead>
+          {%for robot in medium_robots_list %}
+          <tr>
+            <td>{{robot.title}}</td>
+            <td><input type="checkbox" name="{{robot.id}}" value="{{robot.condition}}"></td>
+          </tr>
+          {% endfor %}
+        </table>
+        <br>
+
+        <table>
+          <caption>Большие боевые роботы</caption>
+          <thead>
+            <tr>
+              <td>Робот</td>
+              <td>Готовность</td>
+            </tr>
+          </thead>
+          {%for robot in big_robots_list %}
+          <tr>
+            <td>{{robot.title}}</td>
+            <td><input type="checkbox" name="{{robot.id}}" value="{{robot.condition}}"></td>
+          </tr>
+          {% endfor %}
+        </table>          
+        <br>
+
+        <input type="hidden" name="tournament_id" value="{{tournament.id}}"> 
+         
+        <input type="submit" value="Register robots">
+       </form>
+       <br>
+    </div>
+  </div>
+
+{% endblock %}
